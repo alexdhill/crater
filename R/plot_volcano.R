@@ -1,7 +1,7 @@
 #' 
 #' Plot Differential expression from DESeq2 results as a volcano plot
 #' 
-#' @param dds A DESeqDataSet object after running DESeq()
+#' @param dds A DESeqDataSet object **after** running DESeq()
 #' @param contrast A character vector of length 3 specifying the contrast to plot, the numerator and the denominator
 #' @param color_by A column name in the rowData of the dds to color points by. Default is "gene_biotype"
 #' @param colors A named vector of colors to use for the different levels of color_by. Default is biotype_colors (assume biotypes are summarized)
@@ -10,12 +10,7 @@
 #' @param size Base size for the plot text and points. Default is 8
 #' 
 #' @return A ggplot2 object representing the volcano plot
-#' 
-#' @import ggplot2
-#' @import dplyr
-#' @import SummarizedExperiment
-#' @import DESeq2
-#' 
+#'
 #' @export
 plot_volcano <- function(dds, contrast, color_by = "gene_biotype", colors = biotype_colors, p_threshold=0.01, lfc_threshold=1, size = 8) {
     message("Gathering DESeq2 results...")

@@ -1,12 +1,7 @@
 #'
-#' Plot geneset enrichment from CREATE dds
+#' Plot geneset enrichment from CRATE dds
 #' 
-#' @import DESeq2
-#' @import dplyr
-#' @import fgsea
-#' @import ggplot2
-#' 
-#' @param dds A DESeqDataSet object from DESeqDataSetFromCreate
+#' @param dds A DESeqDataSet object from DESeqDataSetFromCrate
 #' @param geneset A list of gene sets for enrichment analysis
 #' @param top The number of top pathways to display
 #' @param hide_insig Whether to hide insignificant pathways
@@ -49,7 +44,7 @@ plot_enrichment <- function(dds, geneset, top=10, hide_insig = TRUE, signif_leve
         ggplot2::geom_point(ggplot2::aes(size = -log2(padj))) +
         ggplot2::labs(x = "Pathway", y = "Normalized Enrichment Score (NES)") +
         ggplot2::scale_color_manual(values = c("TRUE" = colors[1], "FALSE" = colors[2])) +
-        theme_create(base_size=size) +
+        theme_crate(base_size=size) +
         ggplot2::theme(legend.position = 'none') +
         ggplot2::coord_flip()
     

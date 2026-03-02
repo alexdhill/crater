@@ -1,8 +1,6 @@
 #'
 #' Load in gene lists as a 'GMT' object
 #' 
-#' @import fgsea
-#' 
 #' @param genes A list of gene sets (a list of list of character vectors)
 #' @param names The name of each gene set
 #' 

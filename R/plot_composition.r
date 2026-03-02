@@ -1,12 +1,6 @@
 #'
 #' Make a plot of the composition of each sample
 #' 
-#' @import DESeq2
-#' @import dplyr
-#' @import SummarizedExperiment
-#' @import tidyr
-#' @import ggplot2
-#' 
 #' @param dds A DESeqDataSet object from DESeqDataSetFromCreate
 #' @param position Position adjustment for geom_bar [default="fill"]
 #' @param fill Variable to fill bars with [default=gene_biotype]
@@ -14,6 +8,7 @@
 #' @param subset Samples to include in the plot [default=NA]
 #' 
 #' @return A ggplot2 object
+#'
 #' @export
 plot_composition <- function(dds, position="fill", fill="gene_biotype", facet=NA, subset=NA, nested=FALSE, add_counts=FALSE, base_size = 10) {
     counts = DESeq2::counts(dds, normalized=TRUE)

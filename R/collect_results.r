@@ -1,8 +1,5 @@
 #'
 #' Collect the results from a DESeq2 run and add in gene biotype information
-#' 
-#' @import DESeq2
-#' @import dplyr
 #'
 #' @param dds A DESeqDataSet object from DESeqDataSetFromCreate
 #' @param ... Additional arguments to pass to DESeq2::results

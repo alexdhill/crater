@@ -1,11 +1,7 @@
 #'
 #' Make a DDS object from a CREATE H5SummarizedExperiment
 #' 
-#' @import SummarizedExperiment
-#' @import DelayedArray
-#' @import DESeq2
-#'
-#' @param create A H5SummarizedExperiment object created by the CREATE pipeline
+#' @param create A H5SummarizedExperiment object created by the CRATE pipeline
 #' @param design A formula specifying the model design
 #' 
 #' @return A DESeqDataSet object

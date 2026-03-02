@@ -7,6 +7,7 @@
 #' @param scale The new width of the plot (in)
 #'
 #' @return The refitted plot object
+#'
 #' @export
 scale_plot <- function(plot, owid, ohgt, scale) {
     nwid = owid / scale

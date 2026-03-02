@@ -1,12 +1,11 @@
 #'
 #' Collect the GENCODE/RepeatMasker biotypes into relevant subsets
 #' 
-#' @import dplyr
-#' 
 #' @param data A data frame containing a column with biotype information
 #' @param biotypes A string specifying the column name with biotype information [default="gene_biotype"]
 #' 
 #' @return The data frame with the summarized biotypes
+#'
 #' @export
 summarize_biotypes <- function(data, biotypes="gene_biotype", gene_ids='gene_id', gene_names="gene_name", biotypes_to=NA) {
     # Gather columns

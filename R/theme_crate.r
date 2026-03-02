@@ -7,8 +7,9 @@
 #' @param base_size Base font size (default is 10)
 #' 
 #' @return A ggplot2 theme
+#'
 #' @export
-theme_create <- function(base_size=10) {
+theme_crate <- function(base_size=10) {
     return(
         ggthemes::theme_foundation(
             base_size = base_size,

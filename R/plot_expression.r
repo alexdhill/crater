@@ -1,11 +1,6 @@
 #'
 #' Plot geneset enrichment from CREATE dds
 #' 
-#' @import DESeq2
-#' @import dplyr
-#' @import fgsea
-#' @import ggplot2
-#' 
 #' @param dds A DESeqDataSet object from DESeqDataSetFromCreate
 #' @param gene_ids A character vector of gene IDs or a logical vector indicating which genes to plot
 #' @param counts Either "raw" or "normalized" counts to plot
@@ -17,6 +12,7 @@
 #' @param size Base font size for the plot
 #' 
 #' @return A ggplot2 object
+#'
 #' @export
 plot_expression <- function(dds, gene_ids, counts="normalized", contrast = NA, color_by=NA, show_ns = TRUE, step = 0.1, nrow = NA, size = 8, labeller = NA) {
     if (class(gene_ids) == "logical") {

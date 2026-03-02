@@ -1,7 +1,7 @@
 #'
-#' Plot geneset enrichment from CREATE dds
+#' Plot geneset enrichment from CRATE dds
 #' 
-#' @param dds A DESeqDataSet object from DESeqDataSetFromCreate
+#' @param dds A DESeqDataSet object from **after** running DESeq()
 #' @param geneset A list of gene sets for enrichment analysis
 #' @param top The number of top pathways to display
 #' @param hide_insig Whether to hide insignificant pathways
@@ -10,6 +10,7 @@
 #' @param labeller A function for labeling the pathways
 #' 
 #' @return A ggplot2 object
+#'
 #' @export
 plot_enrichment <- function(
     dds, gene_list, ontology = 'BP', contrast = NA,
