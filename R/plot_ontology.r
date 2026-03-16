@@ -43,10 +43,10 @@ plot_enrichment <- function(
     all_genes <- de_genes$signif
     names(all_genes) <- de_genes$gene_id
 
-    go_data <- new(
+    go_data <- methods::new(
         'topGOdata', ontology = ontology,
         allGenes = all_genes, geneSel = ~ . == TRUE,
-        annot = annFUN.org, mapping = 'org.Hs.eg.db', ID = 'ensembl',
+        annot = topGO::annFUN.org, mapping = 'org.Hs.eg.db', ID = 'ensembl',
         ... = ...
     )
 

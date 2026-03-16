@@ -54,17 +54,22 @@ plot_composition <- function(dds, position="fill", fill="gene_biotype", facet=NA
         }
     }
 
+    plot = plot +
+        ggplot2::scale_y_continuous(expand = c(0, 0)) +
+        ggplot2::scale_fill_manual(values = biotype_colors) +
+        ggplot2::labs(x = "Sample", y = ifelse(position == "fill", "Proportion of counts", "Counts"), fill = "Biotypes") +
+        theme_crate(base_size = base_size)
+
     if (add_counts) {
         sample_counts = dplyr::group_by(counts, names)
         sample_counts = dplyr::summarize(sample_counts, total = sum(count))
-        
+        plot = plot + ggplot2::geom_text(
+            data = sample_counts,
+            ggplot2::aes(x = names, y = Inf, label = scales::comma(round(total))),
+            inherit.aes = FALSE,
+            vjust = 1.2, size = base_size / ggplot2::.pt
+        )
     }
-    
-    plot = plot +
-        ggplot2::coord_cartesian(expand = c(bottom=FALSE, top=FALSE)) +
-        ggplot2::scale_fill_manual(values = biotype_colors) +
-        ggplot2::labs(x = "Sample", y = "Proportion of counts", fill = "Biotypes") +
-        theme_create(base_size = base_size)
 
     return(plot)
 }

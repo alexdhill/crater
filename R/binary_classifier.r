@@ -2,8 +2,9 @@
 
 
 binary_classifier <- function(y, X, nrepeats = 10, nfolds = 5, final_fold = NA, seed = 1337) {
+    `%do%` <- foreach::`%do%`
     set.seed(seed)
-    
+
     libraries = list("dplyr", "foreach", "caret", "glmnet", "pROC")
     has_libraries <- check_packages(libraries)
     if (!all(has_libraries)) {
@@ -37,7 +38,7 @@ binary_classifier <- function(y, X, nrepeats = 10, nfolds = 5, final_fold = NA, 
         }
     }
 
-    feature_reduction <- foreach::foreach(1:nrepeats, .combine = 'c') foreach::%do% {
+    feature_reduction <- foreach::foreach(1:nrepeats, .combine = 'c') %do% {
         lasso_models <- glmnet::cv.glmnet(
             y = y, x = as.matrix(X), alpha = 1,
             family = "binomial", type.measure = "mse", nfolds = nfolds
@@ -58,7 +59,7 @@ binary_classifier <- function(y, X, nrepeats = 10, nfolds = 5, final_fold = NA, 
         best_features <- rep(TRUE, ncol(X))
     }
 
-    parameter_tuning <- foreach::foreach(alpha = seq(0, 1, by = 0.01), .combine = 'c') foreach::%do% {
+    parameter_tuning <- foreach::foreach(alpha = seq(0, 1, by = 0.01), .combine = 'c') %do% {
         X_best <- X[, best_features]
 
         tuning_models <- glmnet::cv.glmnet(

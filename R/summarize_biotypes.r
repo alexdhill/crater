@@ -18,7 +18,7 @@ summarize_biotypes <- function(data, biotypes="gene_biotype", gene_ids='gene_id'
     # Find gene v repeats
     summarized_biotypes <- dplyr::mutate(
         summarized_biotypes,
-        biotype_class=case_when(
+        biotype_class=dplyr::case_when(
             stringr::str_starts(gi, "ENSG") ~ "gene",
             TRUE ~ "repeat"
         )

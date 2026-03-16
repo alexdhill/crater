@@ -31,6 +31,10 @@ plot_expression <- function(dds, gene_ids, counts="normalized", contrast = NA, c
     if (!(counts %in% c("raw", "normalized"))) {
         stop("counts must be either 'raw' or 'normalized'")
     }
+
+    if (is.na(color_by)) {
+        color_by <- contrast[1]
+    }
     
     message("Extracting expression data...")
     if (counts == 'raw') {
@@ -104,16 +108,12 @@ plot_expression <- function(dds, gene_ids, counts="normalized", contrast = NA, c
         contrast <- c('gene_name')
     }
 
-    if (is.na(color_by)) {
-        color_by <- contrast[1]
-    }
-    
     message("Creating plot...")
     expr_plot <- ggplot2::ggplot(expr, ggplot2::aes(y = count, x = .data[[contrast[1]]], fill=.data[[color_by]])) +
         ggplot2::geom_boxplot() +
         ggplot2::ylab(ifelse(counts == "raw", "Raw Counts", "Normalized Counts")) +
         ggplot2::xlab("Sample") +
-        theme_create(base_size = size)
+        theme_crate(base_size = size)
 
     if (counts == "normalized") {
         message("...adding significance annotations")

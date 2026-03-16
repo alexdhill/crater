@@ -11,7 +11,7 @@ make_gmt <- function(genes, names, save_to=NA) {
         stop("Length of genes and names must be the same")
     }
 
-    outfile = ifelse(is.na(save_to), file.path("tmp" + as.numeric(Sys.time()) + ".gmt"), save_to)
+    outfile = ifelse(is.na(save_to), file.path(paste0("tmp", as.numeric(Sys.time()), ".gmt")), save_to)
     
     dat = data.frame(Name=names, Description=rep("", length(names)), Genes=I(list(genes)))
     genesets = apply(dat, 1, function(row) {

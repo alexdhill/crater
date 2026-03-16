@@ -59,6 +59,6 @@ plot_volcano <- function(dds, contrast, color_by = "gene_biotype", colors = biot
             y = "-Log10 Adjusted P-value",
             color = stringr::str_to_title(gsub("_", " ", color_by))
         ) +
-        theme_create(base_size = size)
+        theme_crate(base_size = size)
     return(volcano_plot)
 }

@@ -16,28 +16,29 @@ plot_enrichment <- function(dds, geneset, top=10, hide_insig = TRUE, signif_leve
     gene_order <- as.data.frame(gene_order)
     gene_order[["gene_id"]] <- rownames(gene_order)
     gene_order <- dplyr::filter(gene_order, grepl("^ENSG", gene_id))
-    gene_names[is.na(gene_names)] = gene_order$gene_id[is.na(gene_names)]
     gene_order <- dplyr::left_join(gene_order, as.data.frame(SummarizedExperiment::rowData(dds)), by = "gene_id")
-    gene_order <- dplyr::arrange(gene_order, desc(stat))
-    if (rm_dupes) { 
+    gene_order <- dplyr::arrange(gene_order, dplyr::desc(stat))
+    if (rm_dupes) {
         gene_order <- gene_order[!duplicated(gene_order$gene_name), ]
         gene_names <- gene_order$gene_name
+    } else {
+        gene_names <- make.unique(gene_order$gene_name)
     }
-    else { gene_names = make.unique(gene_order$gene_name) }
-    gene_order = gene_order$stat
-    names(gene_order) = gene_names
-    gene_order = na.omit(gene_order)
+    gene_names[is.na(gene_names)] <- gene_order$gene_id[is.na(gene_names)]
+    gene_order <- gene_order$stat
+    names(gene_order) <- gene_names
+    gene_order <- stats::na.omit(gene_order)
 
-    enrichment = fgsea::fgsea(
+    enrichment <- fgsea::fgsea(
         pathways = geneset,
         stats = gene_order
     )
 
-    if (hide_insig) enrichment = dplyr::filter(enrichment$padj < signif_level)
-    enrichment = dplyr::mutate(signif = ifelse(padj < signif_level, TRUE, FALSE))
-    enrichment = dplyr::mutate(direction = ifelse(NES > 0, "UP", "DOWN"))
-    enrichment = dplyr::group_by(enrichment, direction)
-    enrichment = dplyr::slice_max(enrichment, order_by = abs(NES), n = top, with_ties = FALSE)
+    if (hide_insig) enrichment <- dplyr::filter(enrichment, padj < signif_level)
+    enrichment <- dplyr::mutate(enrichment, signif = ifelse(padj < signif_level, TRUE, FALSE))
+    enrichment <- dplyr::mutate(enrichment, direction = ifelse(NES > 0, "UP", "DOWN"))
+    enrichment <- dplyr::group_by(enrichment, direction)
+    enrichment <- dplyr::slice_max(enrichment, order_by = abs(NES), n = top, with_ties = FALSE)
 
     plot = ggplot2::ggplot(enrichment, ggplot2::aes(x = reorder(pathway, NES), y = NES, color = signif)) +
         ggplot2::geom_segment(ggplot2::aes(yend = 0)) +

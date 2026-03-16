@@ -10,7 +10,7 @@ load_counts(countsDir)
 \item{create}{A H5SummarizedExperiment object created by the CREATE pipeline}
 }
 \value{
-A DESeqDataSet object
+A H5-backed SummarizedExperiment object
 }
 \description{
 Make a DDS object from a CREATE H5SummarizedExperiment
