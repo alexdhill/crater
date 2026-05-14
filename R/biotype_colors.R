@@ -1,6 +1,6 @@
 #' Biotype colors for pretty plotting (use with summarize_biotypes())
 #' @export
-biotype_colors = list(
+biotype_colors <- list(
     "Coding" = "#44475A",
     "lncRNA" = "#8BE9FD",
     "miRNA" = "#FF79C6",
@@ -15,3 +15,4 @@ biotype_colors = list(
     "Other gene" = "#E0C527",
     "Other repeat" = "#C26B4D"
 )
+

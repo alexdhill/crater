@@ -10,11 +10,11 @@
 #'
 #' @export
 scale_plot <- function(plot, owid, ohgt, scale) {
-    nwid = owid / scale
-    ratio = ohgt / owid
-    nheight = nwid * ratio
+    nwid <- owid / scale
+    ratio <- ohgt / owid
+    nheight <- nwid * ratio
     message("Refitting plot from ", owid, "x", ohgt, " to ", nwid, "x", nheight)
-    base_size = 10 / scale**1.33
+    base_size <- 10 / scale**1.33
     message("New base size: ", base_size)
-    return(plot & theme_crate(base_size))
+    plot & theme_crate(base_size)
 }

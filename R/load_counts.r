@@ -1,12 +1,12 @@
 #'
 #' Make a DDS object from a CREATE H5SummarizedExperiment
-#' 
-#' @param create A H5SummarizedExperiment object created by the CREATE pipeline
-#' 
+#'
+#' @param counts A H5SummarizedExperiment object created by the CREATE pipeline
+#'
 #' @return A H5-backed SummarizedExperiment object
 #'
 #' @export
-load_counts <- function(countsDir) {
+load_counts <- function(counts) {
     se <- HDF5Array::loadHDF5SummarizedExperiment(countsDir)
-    return(se)
+    se
 }
