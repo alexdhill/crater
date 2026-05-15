@@ -4,10 +4,10 @@
 \alias{load_counts}
 \title{Make a DDS object from a CREATE H5SummarizedExperiment}
 \usage{
-load_counts(countsDir)
+load_counts(counts)
 }
 \arguments{
-\item{create}{A H5SummarizedExperiment object created by the CREATE pipeline}
+\item{counts}{A H5SummarizedExperiment object created by the CREATE pipeline}
 }
 \value{
 A H5-backed SummarizedExperiment object
