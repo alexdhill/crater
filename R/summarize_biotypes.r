@@ -27,16 +27,14 @@ summarize_biotypes <- function(
         stop("Need gene_names to summarize biotypes")
     }
 
-    # Find gene v repeats
     summarized_biotypes <- dplyr::mutate(
         summarized_biotypes,
-        biotype_class <- dplyr::case_when(
+        biotype_class = dplyr::case_when(
             stringr::str_starts(gi, "ENSG") ~ "gene",
             TRUE ~ "repeat"
         )
     )
 
-    # Collapse
     summarized_biotypes <- dplyr::mutate(
         summarized_biotypes,
         bt <- dplyr::case_when(
@@ -51,7 +49,6 @@ summarize_biotypes <- function(
     )
 
     summarized_biotypes <- dplyr::pull(summarized_biotypes, bt)
-
     if (is.na(biotypes_to)) {
         biotype_col <- biotypes
     } else {
