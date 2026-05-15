@@ -7,7 +7,7 @@
 #' @return A DESeqDataSet object
 #' @export
 DESeqDataSetFromCrate <- function(create_se, design) {
-    dds <- create
+    dds <- create_se
     SummarizedExperiment::assays(dds) <- lapply(
         SummarizedExperiment::assays(dds),
         as.matrix

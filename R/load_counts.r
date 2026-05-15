@@ -7,6 +7,6 @@
 #'
 #' @export
 load_counts <- function(counts) {
-    se <- HDF5Array::loadHDF5SummarizedExperiment(countsDir)
+    se <- HDF5Array::loadHDF5SummarizedExperiment(counts)
     se
 }
