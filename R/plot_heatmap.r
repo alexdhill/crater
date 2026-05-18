@@ -2,27 +2,27 @@
 #' Plot a clustered heatmap of expression data
 #'
 #' @param dds A DESeqDataSet object from DESeqDataSetFromCreate
-#' @param genes A character vector of gene IDs or a logical vector indicating which genes to plot
-#' @param base_size Base font size for the plot [default=8]
-#' @param samples A character or logical vector of samples to include [default=NA, all samples]
+#' @param genes A character vector of gene IDs or a logical vector of size `nrow`
+#' @param samples A character or logical vector of size `ncol`
 #' @param gene_label Column in rowData to use as row labels [default="gene_id"]
 #' @param show_rownames Whether to show row (gene) labels [default=TRUE]
 #' @param show_colnames Whether to show column (sample) labels [default=FALSE]
-#' @param colors A length-3 vector of colors for the gradient (low, mid, high) [default=c("red","white","blue")]
-#' @param scale Scaling method: "log" (log10+1), "logz" (log10+1 then z-score), or "z" (z-score) [default="logz"]
-#' @param col_annotations A data.frame of column annotations, rownames must match sample names [default=NA]
-#' @param row_annotations A data.frame of row annotations, rownames must match gene IDs [default=NA]
-#' @param annotation_colors A named list of color vectors for each annotation column [default=NA]
+#' @param colors A vector of colors for the gradient [default=c("red","white","blue")]
+#' @param scale Scaling method: "log", "logz", or "z" [default="logz"]
 #' @param row_annotation_scale Relative width of row annotation tiles [default=0.0625]
 #' @param col_annotation_scale Relative height of column annotation tiles [default=0.0625]
 #' @param row_dendro_scale Relative width of the row dendrogram [default=0.125]
 #' @param col_dendro_scale Relative height of the column dendrogram [default=0.125]
-#' @param labeller A named character vector mapping gene IDs to display labels [default=NA]
-#' @param filename Path to save the plot; if NA the plot is returned only [default=NA]
-#' @param assemble If TRUE (default), return the assembled patchwork. If FALSE, return a list
-#'   with `$plots`, `$design`, `$widths`, and `$heights` so the panels can be integrated into
-#'   an outer patchwork at the same level (required for `guides = 'collect'` to work across
-#'   the boundary).
+#' @param base_size Base font size for the plot [default=8]
+#' @param col_annotations A data.frame of column annotations, rownames must match samples
+#' @param row_annotations A data.frame of row annotations, rownames must match gene IDs
+#' @param annotation_colors A named list of color vectors for each annotation column
+#' @param labeller A named character vector mapping gene IDs to display labels
+#' @param filename Path to save the plot; if NA the plot is returned only
+#' @param assemble return the assembled patchwork ELSE return a list with
+#'    `$plots`, `$design`, `$widths`, and `$heights` so the panels can be integrated into
+#'    an outer patchwork at the same level (required for `guides = 'collect'` to work
+#'    across the boundary).
 #'
 #' @return A patchwork plot object, or a list of components when `assemble = FALSE`
 #'
@@ -30,20 +30,20 @@
 plot_heatmap <- function(
     dds,
     genes,
-    base_size = 8,
     samples = NA,
+    base_size = 8,
     gene_label = "gene_id",
     show_rownames = TRUE,
     show_colnames = FALSE,
     colors = c("red", "white", "blue"),
     scale = "logz",
-    col_annotations = NA,
-    row_annotations = NA,
-    annotation_colors = NA,
     row_annotation_scale = 0.0625,
     col_annotation_scale = 0.0625,
     row_dendro_scale = 0.125,
     col_dendro_scale = 0.125,
+    col_annotations = NA,
+    row_annotations = NA,
+    annotation_colors = NA,
     labeller = NA,
     filename = NA,
     assemble = TRUE
