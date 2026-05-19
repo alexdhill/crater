@@ -397,7 +397,7 @@ plot_heatmap <- function(
             plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0)
         )
     spacer <- tag + ggplot2::theme(plot.tag = ggplot2::element_blank())
-    if (any(is.na(col_annotations)) & any(is.na(row_annotations))) {
+    if (any(is.na(col_annotations)) && any(is.na(row_annotations))) {
         panels <- list(tag, col_dendro, row_dendro, heatmap)
         design <- "AB\nCD"
         widths <- c(row_dendro_scale, 1)
