@@ -81,12 +81,12 @@ plot_volcano <- function(
         ggplot2::geom_hline(
             yintercept = -log10(p_threshold),
             linetype = "dashed",
-            color = "grey"
+            color = "lightgrey"
         ) +
         ggplot2::geom_vline(
             xintercept = c(-lfc_threshold, lfc_threshold),
             linetype = "dashed",
-            color = "grey"
+            color = "lightgrey"
         ) +
         ggplot2::geom_point(
             ggplot2::aes(color = tmp_color_signif),

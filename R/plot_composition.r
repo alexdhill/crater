@@ -28,7 +28,12 @@ plot_composition <- function(
     }
 
     biotypes <- SummarizedExperiment::rowData(dds)
-    biotypes <- as.data.frame(biotypes)
+    biotypes <- as.data.frame(biotypes)[, unique(c(
+        "gene_id",
+        "gene_name",
+        "gene_biotype",
+        fill
+    ))]
     samples <- colnames(counts)
     counts <- dplyr::mutate(counts, gene_id = rownames(counts))
     counts <- dplyr::left_join(counts, biotypes, by = "gene_id")
@@ -38,25 +43,18 @@ plot_composition <- function(
         names_to = "names",
         values_to = "count"
     )
+    counts <- dplyr::left_join(
+        counts,
+        as.data.frame(SummarizedExperiment::colData(dds)),
+        by = "names"
+    )
 
     groups <- c(facet, fill, "names")
     groups <- groups[!is.na(groups)]
     counts <- dplyr::summarise(
         counts,
         count = sum(count),
-        .by = dplyr::all_of(groups)
-    )
-
-    counts <- dplyr::left_join(
-        counts,
-        as.data.frame(SummarizedExperiment::colData(dds)),
-        by = "names"
-    )
-    counts <- dplyr::mutate(
-        counts,
-        dplyr::across(dplyr::all_of(fill), function(bt) {
-            factor(bt, levels = names(biotype_colors))
-        })
+        .by = groups
     )
 
     plot <- ggplot2::ggplot(counts, ggplot2::aes(x = names, y = count)) +
@@ -67,6 +65,7 @@ plot_composition <- function(
         )
 
     if (!is.na(facet) && length(facet) > 0) {
+        design <- as.formula(paste0("~", paste0(facet, collapse = "+")))
         if (length(facet) == 2 && "list" %in% class(facet[[1]])) {
             if (nested) {
                 plot <- plot +
@@ -88,21 +87,19 @@ plot_composition <- function(
         } else {
             if (nested) {
                 plot <- plot +
-                    ggh4x::facet_nested(~facet, scales = "free", space = "free")
+                    ggh4x::facet_nested(design, scales = "free", space = "free")
             } else {
                 plot <- plot +
-                    ggplot2::facet_grid(~facet, scales = "free", space = "free")
+                    ggplot2::facet_grid(design, scales = "free", space = "free")
             }
         }
     }
 
     plot <- plot +
         ggplot2::scale_y_continuous(expand = c(0, 0)) +
-        ggplot2::scale_fill_manual(values = biotype_colors) +
         ggplot2::labs(
             x = "Sample",
-            y = ifelse(position == "fill", "Proportion of counts", "Counts"),
-            fill = "Biotypes"
+            y = ifelse(position == "fill", "Proportion of counts", "Counts")
         ) +
         theme_crate(base_size = base_size)
 

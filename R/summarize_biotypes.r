@@ -2,7 +2,8 @@
 #' Collect the GENCODE/RepeatMasker biotypes into relevant subsets
 #'
 #' @param data A data frame containing a column with biotype information
-#' @param biotypes A string specifying the column name with biotype information [default="gene_biotype"]
+#' @param biotypes A string specifying the column name with biotype information
+#' [default="gene_biotype"]
 #'
 #' @return The data frame with the summarized biotypes
 #'
@@ -10,7 +11,7 @@
 summarize_biotypes <- function(
     data,
     biotypes = "gene_biotype",
-    gene_ids = 'gene_id',
+    gene_ids = "gene_id",
     gene_names = "gene_name",
     biotypes_to = NA
 ) {
@@ -37,7 +38,7 @@ summarize_biotypes <- function(
 
     summarized_biotypes <- dplyr::mutate(
         summarized_biotypes,
-        bt <- dplyr::case_when(
+        bt = dplyr::case_when(
             startsWith(bt, "Mt_") | startsWith(gn, "MT-") ~ "Mitochondrial",
             bt == "protein_coding" ~ "Coding",
             bt %in% c("lncRNA", "miRNA", "LINE", "SINE", "LTR", "DNA") ~ bt,
@@ -54,7 +55,8 @@ summarize_biotypes <- function(
     } else {
         biotype_col <- biotypes_to
     }
-    data[[biotype_col]] <- summarized_biotypes
+    res <- data
+    res[[biotype_col]] <- summarized_biotypes
 
-    data
+    res
 }
