@@ -15,7 +15,8 @@ summarize_biotypes(
 \arguments{
 \item{data}{A data frame containing a column with biotype information}
 
-\item{biotypes}{A string specifying the column name with biotype information \link{default="gene_biotype"}}
+\item{biotypes}{A string specifying the column name with biotype information
+\link{default="gene_biotype"}}
 }
 \value{
 The data frame with the summarized biotypes
