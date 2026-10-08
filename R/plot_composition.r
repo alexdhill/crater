@@ -6,6 +6,9 @@
 #' @param fill Variable to fill bars with [default=gene_biotype]
 #' @param facet Variables to facet the plot with [default=NA]
 #' @param subset Samples to include in the plot [default=NA]
+#' @param nested Whether to use nested facets [default=FALSE]
+#' @param add_counts Whether to add counts to the plot [default=FALSE]
+#' @param base_size Base font size for the plot [default=6]
 #'
 #' @return A ggplot2 object
 #'
@@ -18,7 +21,7 @@ plot_composition <- function(
     subset = NA,
     nested = FALSE,
     add_counts = FALSE,
-    base_size = 10
+    base_size = 6
 ) {
     counts <- DESeq2::counts(dds, normalized = TRUE)
     counts <- as.data.frame(counts)

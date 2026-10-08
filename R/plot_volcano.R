@@ -7,7 +7,8 @@
 #' @param colors A named vector of colors to use for the different levels of color_by. Default is biotype_colors (assume biotypes are summarized)
 #' @param p_threshold Adjusted p-value threshold for significance. Default is 0.01
 #' @param lfc_threshold Log2 fold change threshold for significance. Default is 1
-#' @param size Base size for the plot text and points. Default is 8
+#' @param use_shrinkage Whether to use lfsShrink with apeglm
+#' @param base_size Base size for the plot text and points. Default is 8
 #'
 #' @return A ggplot2 object representing the volcano plot
 #'
@@ -19,10 +20,19 @@ plot_volcano <- function(
     colors = biotype_colors,
     p_threshold = 0.01,
     lfc_threshold = 1,
-    size = 8
+    use_shrinkage = TRUE,
+    base_size = 6
 ) {
     message("Gathering DESeq2 results...")
-    res <- DESeq2::results(dds, contrast = contrast)
+    if (use_shrinkage) {
+        res <- DESeq2::lfcShrink(
+            dds,
+            contrast = contrast,
+            type = "apeglm"
+        )
+    } else {
+        res <- DESeq2::results(dds, contrast = contrast)
+    }
     res <- as.data.frame(res)
     res <- dplyr::filter(res, !is.na(padj))
     res <- dplyr::mutate(
@@ -90,7 +100,7 @@ plot_volcano <- function(
         ) +
         ggplot2::geom_point(
             ggplot2::aes(color = tmp_color_signif),
-            size = size / 10,
+            size = base_size / 10,
             na.rm = TRUE
         ) +
         ggplot2::xlab("Log2 Fold Change") +
@@ -103,7 +113,7 @@ plot_volcano <- function(
         ggplot2::scale_y_continuous(expand = c(0.01, 0)) +
         ggplot2::guides(
             color = ggplot2::guide_legend(
-                override.aes = list(shape = 15, size = size / 2)
+                override.aes = list(shape = 15, size = base_size / 2)
             )
         ) +
         ggplot2::labs(
@@ -111,6 +121,6 @@ plot_volcano <- function(
             y = "-Log10 Adjusted P-value",
             color = stringr::str_to_title(gsub("_", " ", color_by))
         ) +
-        theme_crate(base_size = size)
+        theme_crate(base_size = base_size)
     return(volcano_plot)
 }

@@ -37,16 +37,17 @@ plot_heatmap <- function(
     show_colnames = FALSE,
     colors = c("red", "white", "blue"),
     scale = "logz",
-    row_annotation_scale = 0.0625,
-    col_annotation_scale = 0.0625,
-    row_dendro_scale = 0.125,
     col_dendro_scale = 0.125,
     col_annotations = NA,
     row_annotations = NA,
     annotation_colors = NA,
+    genes_as_cols = FALSE,
+    assemble = TRUE,
+    row_annotation_scale = 0.0625,
+    col_annotation_scale = 0.0625,
+    row_dendro_scale = 0.125,
     labeller = NA,
-    filename = NA,
-    assemble = TRUE
+    filename = NA
 ) {
     ## Order leaves intelligently
     treeorder <- function(hclust, values) {
@@ -121,6 +122,7 @@ plot_heatmap <- function(
         stop("Invalid scale option")
     }
     mat <- as.matrix(mat)
+    if (genes_as_cols) mat <- t(mat)
 
     ## Make column dendrograms
     col_hclust <- stats::hclust(stats::dist(t(mat)))

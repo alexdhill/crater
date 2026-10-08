@@ -4,10 +4,10 @@
 \alias{theme_crate}
 \title{A publication-ready theme for ggplot2}
 \usage{
-theme_crate(base_size = 6)
+theme_crate(base_size = 6, font_family = "Helvetica")
 }
 \arguments{
-\item{base_size}{Base font size (default is 10)}
+\item{base_size}{Smallest font size in pts (default: 6)}
 }
 \value{
 A ggplot2 theme

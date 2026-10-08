@@ -14,16 +14,17 @@ plot_heatmap(
   show_colnames = FALSE,
   colors = c("red", "white", "blue"),
   scale = "logz",
-  row_annotation_scale = 0.0625,
-  col_annotation_scale = 0.0625,
-  row_dendro_scale = 0.125,
   col_dendro_scale = 0.125,
   col_annotations = NA,
   row_annotations = NA,
   annotation_colors = NA,
+  genes_as_cols = FALSE,
+  assemble = TRUE,
+  row_annotation_scale = 0.0625,
+  col_annotation_scale = 0.0625,
+  row_dendro_scale = 0.125,
   labeller = NA,
-  filename = NA,
-  assemble = TRUE
+  filename = NA
 )
 }
 \arguments{
@@ -45,12 +46,6 @@ plot_heatmap(
 
 \item{scale}{Scaling method: "log", "logz", or "z" \link{default="logz"}}
 
-\item{row_annotation_scale}{Relative width of row annotation tiles \link{default=0.0625}}
-
-\item{col_annotation_scale}{Relative height of column annotation tiles \link{default=0.0625}}
-
-\item{row_dendro_scale}{Relative width of the row dendrogram \link{default=0.125}}
-
 \item{col_dendro_scale}{Relative height of the column dendrogram \link{default=0.125}}
 
 \item{col_annotations}{A data.frame of column annotations, rownames must match samples}
@@ -59,14 +54,20 @@ plot_heatmap(
 
 \item{annotation_colors}{A named list of color vectors for each annotation column}
 
-\item{labeller}{A named character vector mapping gene IDs to display labels}
-
-\item{filename}{Path to save the plot; if NA the plot is returned only}
-
 \item{assemble}{return the assembled patchwork ELSE return a list with
 \verb{$plots}, \verb{$design}, \verb{$widths}, and \verb{$heights} so the panels can be integrated into
 an outer patchwork at the same level (required for \code{guides = 'collect'} to work
 across the boundary).}
+
+\item{row_annotation_scale}{Relative width of row annotation tiles \link{default=0.0625}}
+
+\item{col_annotation_scale}{Relative height of column annotation tiles \link{default=0.0625}}
+
+\item{row_dendro_scale}{Relative width of the row dendrogram \link{default=0.125}}
+
+\item{labeller}{A named character vector mapping gene IDs to display labels}
+
+\item{filename}{Path to save the plot; if NA the plot is returned only}
 }
 \value{
 A patchwork plot object, or a list of components when \code{assemble = FALSE}

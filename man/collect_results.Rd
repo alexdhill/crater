@@ -4,10 +4,12 @@
 \alias{collect_results}
 \title{Collect the results from a DESeq2 run and add in gene biotype information}
 \usage{
-collect_results(dds, ...)
+collect_results(dds, cols = NA, ...)
 }
 \arguments{
 \item{dds}{A DESeqDataSet object from DESeqDataSetFromCreate}
+
+\item{cols}{The columns to include in the results}
 
 \item{...}{Additional arguments to pass to DESeq2::results}
 }

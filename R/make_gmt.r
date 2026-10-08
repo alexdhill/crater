@@ -3,6 +3,7 @@
 #'
 #' @param genes A list of gene sets (a list of list of character vectors)
 #' @param names The name of each gene set
+#' @param save_to Optional path to save the GMT file
 #'
 #' @return A GMT object
 #' @export

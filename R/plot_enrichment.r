@@ -20,7 +20,7 @@ plot_enrichment <- function(
     colors = c("#50FA7B", "#44475A"),
     labeller = NA,
     rm_dupes = FALSE,
-    size = 10,
+    base_size = 6,
     ...
 ) {
     gene_order <- DESeq2::results(dds, ...)
@@ -78,7 +78,7 @@ plot_enrichment <- function(
         ggplot2::scale_color_manual(
             values = c("TRUE" = colors[1], "FALSE" = colors[2])
         ) +
-        theme_crate(base_size = size) +
+        theme_crate(base_size = base_size) +
         ggplot2::theme(legend.position = "none") +
         ggplot2::coord_flip()
 

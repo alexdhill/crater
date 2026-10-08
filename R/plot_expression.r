@@ -8,8 +8,9 @@
 #' @param color_by The column in colData to color the boxplots by - defaults to gene IDs
 #' @param show_ns Whether to show non-significant comparisons [default = TRUE]
 #' @param step The step size for positioning significance annotations [default = 0.1]
-#' @param nrow The number of rows in the facet wrap - defaults to a square
+#' @param nrow The number of rows in the facet wrap - default is a square
 #' @param size Base font size for the plot
+#' @param labeller A labeller function for facet_wrap
 #'
 #' @return A ggplot2 object
 #'

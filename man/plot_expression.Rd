@@ -32,9 +32,11 @@ plot_expression(
 
 \item{step}{The step size for positioning significance annotations \link{default = 0.1}}
 
-\item{nrow}{The number of rows in the facet wrap - defaults to a square}
+\item{nrow}{The number of rows in the facet wrap - default is a square}
 
 \item{size}{Base font size for the plot}
+
+\item{labeller}{A labeller function for facet_wrap}
 }
 \value{
 A ggplot2 object

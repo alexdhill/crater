@@ -12,7 +12,7 @@ plot_composition(
   subset = NA,
   nested = FALSE,
   add_counts = FALSE,
-  base_size = 10
+  base_size = 6
 )
 }
 \arguments{
@@ -25,6 +25,12 @@ plot_composition(
 \item{facet}{Variables to facet the plot with \link{default=NA}}
 
 \item{subset}{Samples to include in the plot \link{default=NA}}
+
+\item{nested}{Whether to use nested facets \link{default=FALSE}}
+
+\item{add_counts}{Whether to add counts to the plot \link{default=FALSE}}
+
+\item{base_size}{Base font size for the plot \link{default=6}}
 }
 \value{
 A ggplot2 object

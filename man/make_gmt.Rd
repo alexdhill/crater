@@ -10,6 +10,8 @@ make_gmt(genes, names, save_to = NA)
 \item{genes}{A list of gene sets (a list of list of character vectors)}
 
 \item{names}{The name of each gene set}
+
+\item{save_to}{Optional path to save the GMT file}
 }
 \value{
 A GMT object

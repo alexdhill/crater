@@ -1,32 +1,46 @@
-
-
-
-binary_classifier <- function(y, X, nrepeats = 10, nfolds = 5, final_fold = NA, seed = 1337) {
+#' This function trains a binary classifier using LASSO for feature selection and elastic net for parameter tuning.
+#'
+#' @param y A factor, numeric, or integer vector of binary outcomes (0/1 or two levels).
+#' @param X A data frame or matrix of predictor variables.
+#' @param nrepeats An integer specifying the number of times to repeat the LASSO feature selection process. Default is 10.
+#' @param nfolds An integer specifying the number of folds for cross-validation. Default is 5.
+#' @param final_fold A logical vector indicating the final training set. If NA, it will be generated using caret's createFolds function. Default is NA.
+#' @param seed An integer specifying the random seed for reproducibility. Default is 1337.
+#'
+#' @return A list containing the final model, selected features, optimal alpha and lambda values, and the training set used for the final model.
+#' @export
+binary_classifier <- function(
+    y,
+    X,
+    nrepeats = 10,
+    nfolds = 5,
+    final_fold = NA,
+    seed = 1337
+) {
     `%do%` <- foreach::`%do%`
     set.seed(seed)
 
-    libraries = list("dplyr", "foreach", "caret", "glmnet", "pROC")
-    has_libraries <- check_packages(libraries)
-    if (!all(has_libraries)) {
-        stop(paste("Missing required packages:\n", paste(libraries[!has_libraries], collapse = "\n")))
-    }
-
-    if (!(class(y) %in% c('factor', 'numeric', 'integer'))) {
+    if (!(class(y) %in% c("factor", "numeric", "integer"))) {
         stop("y must be a factor, numeric, or integer vector")
     }
-    if (!is.data.frame(X) & !is.matrix(X)) {
+    if (!is.data.frame(X) && !is.matrix(X)) {
         stop("X must be a data frame or matrix")
     }
     if (length(y) != nrow(X)) {
         stop("Length of y must match number of rows in X")
     }
-    if (!(is.numeric(nrepeats) & (nrepeats > -1) & (nrepeats %% 1 == 0))) {
+    if (!(is.numeric(nrepeats) && (nrepeats > -1) && (nrepeats %% 1 == 0))) {
         stop("nrepeats must be a positive integer")
     }
-    if (!(is.numeric(nfolds) & (nfolds > 1) & (nfolds %% 1 == 0))) {
+    if (!(is.numeric(nfolds) && (nfolds > 1) && (nfolds %% 1 == 0))) {
         stop("nfolds must be an integer greater than 1")
     }
-    if (!(is.na(final_fold) | class(final_fold) %in% c("logical", "numeric", "integer"))) {
+    if (
+        !(
+            is.na(final_fold) ||
+                class(final_fold) %in% c("logical", "numeric", "integer")
+        )
+    ) {
         stop("final_fold must be a logical vector")
     }
 
@@ -38,7 +52,7 @@ binary_classifier <- function(y, X, nrepeats = 10, nfolds = 5, final_fold = NA, 
         }
     }
 
-    feature_reduction <- foreach::foreach(1:nrepeats, .combine = 'c') %do% {
+    feature_reduction <- foreach::foreach(1:nrepeats, .combine = "c") %do% {
         lasso_models <- glmnet::cv.glmnet(
             y = y, x = as.matrix(X), alpha = 1,
             family = "binomial", type.measure = "mse", nfolds = nfolds
@@ -59,7 +73,10 @@ binary_classifier <- function(y, X, nrepeats = 10, nfolds = 5, final_fold = NA, 
         best_features <- rep(TRUE, ncol(X))
     }
 
-    parameter_tuning <- foreach::foreach(alpha = seq(0, 1, by = 0.01), .combine = 'c') %do% {
+    parameter_tuning <- foreach::foreach(
+        alpha = seq(0, 1, by = 0.01),
+        .combine = "c"
+    ) %do% {
         X_best <- X[, best_features]
 
         tuning_models <- glmnet::cv.glmnet(

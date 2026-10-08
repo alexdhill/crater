@@ -2,7 +2,12 @@
 #' Plot geneset enrichment from CRATE dds
 #'
 #' @param dds A DESeqDataSet object from **after** running DESeq()
-#' @param geneset A list of gene sets for enrichment analysis
+#' @param gene_list A list of gene sets for enrichment analysis
+#' @param ontology The ontology to use
+#' @param contrast The DESeq2 contrast to use
+#' @param pval The p-value threshold
+#' @param fold_change The fold change threshold
+#' @param signif The significance level
 #' @param top The number of top pathways to display
 #' @param hide_insig Whether to hide insignificant pathways
 #' @param signif_level The significance level for filtering pathways
@@ -26,15 +31,6 @@ plot_enrichment <- function(
     labeller = NA,
     ...
 ) {
-    libraries <- c("dplyr", "DESeq2", "topGO", "org.Hs.eg.db")
-    has_libs <- check_packages(libraries)
-    if (!all(has_libs)) {
-        stop(paste0(
-            "Missing required packages:\n",
-            paste(libraries[!has_libs], collapse = "\n")
-        ))
-    }
-
     if (is.na(contrast)) {
         de_genes <- DESeq2::results(dds)
     } else {

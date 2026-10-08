@@ -11,7 +11,8 @@ plot_volcano(
   colors = biotype_colors,
   p_threshold = 0.01,
   lfc_threshold = 1,
-  size = 8
+  use_shrinkage = TRUE,
+  base_size = 6
 )
 }
 \arguments{
@@ -27,7 +28,9 @@ plot_volcano(
 
 \item{lfc_threshold}{Log2 fold change threshold for significance. Default is 1}
 
-\item{size}{Base size for the plot text and points. Default is 8}
+\item{use_shrinkage}{Whether to use lfsShrink with apeglm}
+
+\item{base_size}{Base size for the plot text and points. Default is 8}
 }
 \value{
 A ggplot2 object representing the volcano plot

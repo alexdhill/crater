@@ -16,3 +16,18 @@ biotype_colors <- list(
     "Other repeat" = "#C26B4D"
 )
 
+dull_biotypes <- list(
+    "Coding" = "#666666",
+    "lncRNA" = "#92CAC7",
+    "miRNA" = "#5D1F28",
+    "Mitochondrial" = "#876F98",
+    "Microsatellite" = "#ACF1C3",
+    "SINE" = "#2C568A",
+    "LINE" = "#C981A7",
+    "LTR" = "#D8D6FF",
+    "DNA" = "#7D4424",
+    "RNA" = "#84A265",
+    "Human satellite" = "#014959",
+    "Other gene" = "#CFBE7D",
+    "Other repeat" = "#9E702F"
+)

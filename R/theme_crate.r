@@ -1,46 +1,46 @@
 #'
 #' A publication-ready theme for ggplot2
 #'
-#' @param base_size Base font size (default is 10)
+#' @param base_size Smallest font size in pts (default: 6)
 #'
 #' @return A ggplot2 theme
 #'
 #' @export
-theme_crate <- function(base_size = 6) {
+theme_crate <- function(base_size = 6, font_family = "Helvetica") {
     return(
         ggthemes::theme_foundation(
             base_size = base_size,
-            base_family = "Helvetica"
+            base_family = font_family
         ) +
             ggplot2::theme(
                 plot.tag = ggplot2::element_text(
                     size = 1.5 * base_size,
                     face = "bold",
-                    color = "#282A36"
+                    color = "black"
                 ),
                 plot.title = ggplot2::element_text(
                     size = 1.25 * base_size,
-                    color = "#282A36",
+                    color = "black",
                     face = "bold",
                     hjust = 0,
                     vjust = 0.5
                 ),
-                plot.background = ggplot2::element_rect(fill = "#F8F8F2"),
+                plot.background = ggplot2::element_rect(fill = "white"),
                 plot.margin = ggplot2::margin(1, 1, 1, 1),
                 panel.background = ggplot2::element_blank(),
                 panel.border = ggplot2::element_blank(),
                 panel.grid.major = ggplot2::element_blank(),
                 panel.grid.minor = ggplot2::element_blank(),
-                axis.line = ggplot2::element_line(color = "#282A36"),
+                axis.line = ggplot2::element_line(color = "black"),
                 axis.line.x = NULL,
                 axis.line.y = NULL,
                 axis.title = ggplot2::element_text(
                     size = base_size,
-                    color = "#282A36"
+                    color = "black"
                 ),
                 axis.text = ggplot2::element_text(
                     size = base_size,
-                    color = "#282A36"
+                    color = "black"
                 ),
                 axis.text.x = ggplot2::element_text(
                     margin = ggplot2::margin(t = 1),
@@ -69,7 +69,7 @@ theme_crate <- function(base_size = 6) {
                 strip.text = ggplot2::element_text(
                     size = base_size,
                     face = "bold",
-                    color = "#282A36"
+                    color = "black"
                 ),
                 strip.background = ggplot2::element_blank(),
                 strip.placement = "outside",
@@ -78,12 +78,12 @@ theme_crate <- function(base_size = 6) {
                 legend.title = ggplot2::element_text(
                     size = base_size,
                     face = "bold",
-                    color = "#282A36"
+                    color = "black"
                 ),
                 legend.text = ggplot2::element_text(
                     size = base_size,
                     face = "italic",
-                    color = "#282A36"
+                    color = "black"
                 ),
                 legend.background = ggplot2::element_blank(),
                 legend.justification = c(0, 0.75),

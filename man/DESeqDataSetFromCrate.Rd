@@ -4,7 +4,13 @@
 \alias{DESeqDataSetFromCrate}
 \title{Make a DDS object from a CREATE H5SummarizedExperiment}
 \usage{
-DESeqDataSetFromCrate(create_se, design)
+DESeqDataSetFromCrate(
+  create_se,
+  design,
+  min_expr = 3,
+  min_frac = 0.25,
+  min_lib_size = 1e+05
+)
 }
 \arguments{
 \item{create_se}{A H5SummarizedExperiment object created by the CRATE pipeline}

@@ -37,6 +37,18 @@ plot_enrichment(
 \arguments{
 \item{dds}{A DESeqDataSet object from \strong{after} running DESeq()}
 
+\item{gene_list}{A list of gene sets for enrichment analysis}
+
+\item{ontology}{The ontology to use}
+
+\item{contrast}{The DESeq2 contrast to use}
+
+\item{pval}{The p-value threshold}
+
+\item{fold_change}{The fold change threshold}
+
+\item{signif}{The significance level}
+
 \item{top}{The number of top pathways to display}
 
 \item{hide_insig}{Whether to hide insignificant pathways}
